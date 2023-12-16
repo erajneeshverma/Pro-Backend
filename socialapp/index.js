@@ -1,12 +1,23 @@
 import express from "express";
 import format from 'date-format';
 const app = express();
+//swagger docs
+
+import swaggerUi from 'swagger-ui-express';
+// import swaggerDocument from 'swagger.json';
+import YAML from 'yamljs';
+const swaggerDocument = YAML.load('./swagger.yaml');
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+ 
 
 const PORT = 4000 || process.env.PORT;
 var date = new Date();
+
 app.get("/",(req,res)=>{
     res.status(201).send("<p>Hello from rajjo </p>")
 })
+
 
 app.get("/api/v1/instagram", (req,res)=>{
     const instaObj = {
